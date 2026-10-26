@@ -31,7 +31,8 @@ jobs:
       - name: SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=yougi97_tp-devops-correction-docker
+        run: mvn -B verify sonar:sonar -Dsonar.projectKey=yougi97_tp-devops-correction-docke -Dsonar.organization=yougi97 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}  --file ./simple-api/pom.xml
+
 
   # define job to build and publish docker image
   build-and-push-docker-image:
