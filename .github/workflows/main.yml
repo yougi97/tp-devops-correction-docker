@@ -13,6 +13,8 @@ jobs:
     steps:
       #checkout your github code using actions/checkout@v4
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # historique complet, nécessaire à Sonar
 
       #do the same with another action (actions/setup-java@v4) that enable to setup jdk 21
       - name: Set up JDK 21
@@ -25,6 +27,11 @@ jobs:
       - name: Build and test with Maven
         run: mvn -B clean verify
         working-directory: ./simple-api
+
+      - name: SonarCloud analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B verify sonar:sonar -Dsonar.projectKey=<ta-cle-projet> -Dsonar.organization=<ton-organisation> -Dsonar.host.url=https://sonarcloud.io --file ./simple-api/pom.xml
 
   # define job to build and publish docker image
   build-and-push-docker-image:
