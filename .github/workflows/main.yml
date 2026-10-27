@@ -32,7 +32,7 @@ jobs:
         working-directory: ./simple-api
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify sonar:sonar -Dsonar.projectKey=yougi97 -Dsonar.organization=yougi97 -Dsonar.host.url=https://sonarcloud.io
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=yougi97 -Dsonar.organization=yougi97 -Dsonar.host.url=https://sonarcloud.io
 
   # define job to build and publish docker image
   build-and-push-docker-image:
